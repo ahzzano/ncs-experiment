@@ -1,6 +1,4 @@
 import openvino as ov
-import cv2 as cv
-import tensorflow as tf
 import numpy as np
 from PIL import Image
 
@@ -16,8 +14,13 @@ def main():
     arr = np.array(img)/255
 
     img_np = np.expand_dims(arr, axis=0).astype(np.float32)
-    features = compiled(img_np)
-    print(features)
+    img_np = np.transpose(img_np, (0,3,1,2))
+    features = np.array( compiled(img_np)[0] )
+    # infer_request = compiled.create_infer_request()
+    # infer_request.infer(inputs={'input_layer': img_np})
+
+    # features = infer_request.get_output_tensor().data[:]
+    print(class_names[ features.argmax() ])
 
 
 if __name__ == "__main__":
