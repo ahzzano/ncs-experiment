@@ -8,3 +8,8 @@ wheels/
 
 # Virtual environments
 .venv
+
+squeeze_base/
+.DS_Store
+*.xml
+*.bin
